@@ -1,4 +1,4 @@
-<footer class="absolute bottom-0 left-0 right-0 h-24 bg-white border-t border-gray-100 rounded-b-[38px] px-6 z-20 flex items-center justify-around">
+<footer class="absolute bottom-0 left-0 right-0 h-24 bg-white dark:bg-slate-800 border-t border-gray-100 dark:border-slate-700 rounded-b-[38px] px-6 z-20 flex items-center justify-around">
   @for(item of bottomNavItems; track item.id) {
     <a [routerLink]="item.path"
         routerLinkActive="active"
@@ -6,11 +6,14 @@
         #rla="routerLinkActive"
         class="relative transition-all duration-300 flex items-center justify-center"
         [class.bg-gray-900]="rla.isActive"
+        [class.dark:bg-gray-100]="rla.isActive"
         [class.text-white]="rla.isActive"
+        [class.dark:text-gray-900]="rla.isActive"
         [class.rounded-xl]="rla.isActive"
         [class.px-5]="rla.isActive"
         [class.py-2.5]="rla.isActive"
         [class.text-gray-500]="!rla.isActive"
+        [class.dark:text-gray-400]="!rla.isActive"
         [class.p-2]="!rla.isActive">
       
       <span class="material-symbols-outlined">{{item.icon}}</span>

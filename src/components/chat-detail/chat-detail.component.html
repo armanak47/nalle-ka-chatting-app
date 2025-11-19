@@ -1,48 +1,51 @@
 @if (chat(); as currentChat) {
-  <div class="h-full w-full bg-white flex flex-col">
+  <div class="h-full w-full bg-white dark:bg-slate-800 flex flex-col">
     <!-- Header -->
-    <header class="flex items-center justify-between p-4 border-b border-gray-200">
+    <header class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-slate-700">
       <div class="flex items-center space-x-3">
-        <button (click)="goBack()" class="text-gray-600 hover:text-gray-900">
+        <button (click)="goBack()" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
           <span class="material-symbols-outlined">arrow_back_ios_new</span>
         </button>
         <div class="relative">
           <img [src]="currentChat.user.avatarUrl" [alt]="currentChat.user.name" class="w-10 h-10 rounded-full object-cover">
           @if (currentChat.online) {
-            <span class="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-500 border-2 border-white"></span>
+            <span class="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-500 border-2 border-white dark:border-slate-800"></span>
           }
         </div>
         <div>
-          <h2 class="font-bold text-base text-gray-900">{{ currentChat.user.name }}</h2>
-          <p class="text-xs text-gray-500">{{ currentChat.online ? 'Online' : 'Offline' }}</p>
+          <h2 class="font-bold text-base text-gray-900 dark:text-gray-100">{{ currentChat.user.name }}</h2>
+          <p class="text-xs text-gray-500 dark:text-gray-400">{{ currentChat.online ? 'Online' : 'Offline' }}</p>
         </div>
       </div>
-      <div class="flex items-center space-x-4 text-gray-600">
-        <a [routerLink]="['/chat', currentChat.id, 'video-call']" class="hover:text-gray-900">
+      <div class="flex items-center space-x-4 text-gray-600 dark:text-gray-400">
+        <a [routerLink]="['/chat', currentChat.id, 'video-call']" class="hover:text-gray-900 dark:hover:text-gray-100">
           <span class="material-symbols-outlined">videocam</span>
         </a>
-        <a [routerLink]="['/chat', currentChat.id, 'voice-call']" class="hover:text-gray-900">
+        <a [routerLink]="['/chat', currentChat.id, 'voice-call']" class="hover:text-gray-900 dark:hover:text-gray-100">
           <span class="material-symbols-outlined">call</span>
         </a>
-        <button class="hover:text-gray-900">
+        <button class="hover:text-gray-900 dark:hover:text-gray-100">
           <span class="material-symbols-outlined">more_vert</span>
         </button>
       </div>
     </header>
 
     <!-- Messages -->
-    <main class="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
+    <main class="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50 dark:bg-slate-900">
       @for (message of messages(); track message.id) {
         <div class="flex" [class.justify-end]="message.sender === 'me'" [class.justify-start]="message.sender === 'other'">
           <div class="max-w-xs md:max-w-md">
             <div class="px-4 py-2 rounded-2xl" 
                  [class.bg-blue-500]="message.sender === 'me'"
+                 [class.dark:bg-blue-600]="message.sender === 'me'"
                  [class.text-white]="message.sender === 'me'"
                  [class.bg-gray-200]="message.sender === 'other'"
-                 [class.text-gray-800]="message.sender === 'other'">
+                 [class.dark:bg-slate-700]="message.sender === 'other'"
+                 [class.text-gray-800]="message.sender === 'other'"
+                 [class.dark:text-gray-200]="message.sender === 'other'">
               <p class="text-sm">{{ message.text }}</p>
             </div>
-            <p class="text-xs text-gray-400 mt-1"
+            <p class="text-xs text-gray-400 dark:text-gray-500 mt-1"
                [class.text-right]="message.sender === 'me'"
                [class.text-left]="message.sender === 'other'">
               {{ message.time }}
@@ -53,23 +56,23 @@
     </main>
 
     <!-- Input -->
-    <footer class="p-4 bg-white border-t border-gray-100">
+    <footer class="p-4 bg-white dark:bg-slate-800 border-t border-gray-100 dark:border-slate-700">
       <div class="flex items-center space-x-3">
-        <button class="p-2 text-gray-500 hover:text-gray-700">
+        <button class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
           <span class="material-symbols-outlined">mood</span>
         </button>
-        <input type="text" placeholder="Type a message..." class="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400">
-        <button class="p-2 text-gray-500 hover:text-gray-700">
+        <input type="text" placeholder="Type a message..." class="flex-1 bg-gray-100 dark:bg-slate-700 rounded-full px-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500">
+        <button class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
           <span class="material-symbols-outlined">mic</span>
         </button>
-        <button class="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center flex-shrink-0 hover:bg-blue-600 transition-colors">
+        <button class="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center flex-shrink-0 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition-colors">
           <span class="material-symbols-outlined !text-xl">send</span>
         </button>
       </div>
     </footer>
   </div>
 } @else {
-  <div class="flex items-center justify-center h-full">
-    <p class="text-gray-500">Loading chat...</p>
+  <div class="flex items-center justify-center h-full dark:bg-slate-800">
+    <p class="text-gray-500 dark:text-gray-400">Loading chat...</p>
   </div>
 }

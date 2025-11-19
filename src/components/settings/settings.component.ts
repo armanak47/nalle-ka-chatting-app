@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BottomNavComponent } from '../bottom-nav/bottom-nav.component';
+import { ThemeService } from '../../services/theme.service';
 
 interface Setting {
   icon: string;
@@ -17,6 +18,8 @@ interface Setting {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsComponent {
+  private themeService = inject(ThemeService);
+
   user = {
     name: 'John Doe',
     status: 'Available',
@@ -33,9 +36,9 @@ export class SettingsComponent {
     { icon: 'group', name: 'Invite a friend' },
   ]);
 
-  darkMode = signal(false);
+  darkMode = computed(() => this.themeService.theme() === 'dark');
 
   toggleDarkMode() {
-    this.darkMode.update(value => !value);
+    this.themeService.toggleTheme();
   }
 }
