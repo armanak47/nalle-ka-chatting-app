@@ -1,16 +1,14 @@
-
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import type { ChatCategory } from '../../types/chat';
 import { ChatService } from '../../services/chat.service';
-
-type NavItem = 'chats' | 'groups' | 'calls' | 'camera';
+import { BottomNavComponent } from '../bottom-nav/bottom-nav.component';
 
 @Component({
   selector: 'app-chat-screen',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, BottomNavComponent],
   templateUrl: './chat-screen.component.html',
   styleUrls: ['./chat-screen.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,14 +20,6 @@ export class ChatScreenComponent {
 
   chatCategories: ChatCategory[] = ['All', 'Office', 'Family', 'Archive'];
   activeCategory = signal<ChatCategory>('All');
-
-  bottomNavItems: {id: NavItem, icon: string, label: string, notification?: boolean}[] = [
-    { id: 'chats', icon: 'chat_bubble', label: 'Chats' },
-    { id: 'groups', icon: 'apps', label: 'Apps' },
-    { id: 'calls', icon: 'call', label: 'Calls', notification: true },
-    { id: 'camera', icon: 'photo_camera', label: 'Camera', notification: true }
-  ];
-  activeBottomNav = signal<NavItem>('chats');
 
   filteredChats = computed(() => {
     const category = this.activeCategory();
@@ -44,9 +34,5 @@ export class ChatScreenComponent {
 
   selectCategory(category: ChatCategory) {
     this.activeCategory.set(category);
-  }
-
-  selectBottomNav(item: NavItem) {
-    this.activeBottomNav.set(item);
   }
 }
