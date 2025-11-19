@@ -1,0 +1,42 @@
+@if (chat(); as currentChat) {
+  <div class="h-full w-full bg-black relative">
+    <!-- Remote user's video stream -->
+    <img [src]="currentChat.user.avatarUrl" [alt]="currentChat.user.name" class="w-full h-full object-cover opacity-80">
+    
+    <!-- Gradient overlay for controls visibility -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30"></div>
+
+    <!-- Header -->
+    <div class="absolute top-0 left-0 right-0 p-6 flex justify-between items-center">
+        <div class="flex flex-col">
+            <h2 class="text-2xl font-bold text-white">{{ currentChat.user.name }}</h2>
+            <p class="text-sm text-gray-300">00:23</p>
+        </div>
+    </div>
+    
+    <!-- Local user's video stream (PiP) -->
+    <div class="absolute top-6 right-6 w-28 h-40 bg-gray-700 rounded-lg overflow-hidden border-2 border-white/50">
+        <img src="https://avatar.iran.liara.run/public/1" alt="My video" class="w-full h-full object-cover">
+    </div>
+
+    <!-- Call Controls -->
+    <div class="absolute bottom-0 left-0 right-0 flex items-center justify-center space-x-6 p-8">
+      <button class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+        <span class="material-symbols-outlined !text-3xl">flip_camera_android</span>
+      </button>
+      <button class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+        <span class="material-symbols-outlined !text-3xl">videocam_off</span>
+      </button>
+      <button class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+        <span class="material-symbols-outlined !text-3xl">mic_off</span>
+      </button>
+      <button (click)="endCall()" class="w-20 h-16 bg-red-500 rounded-full flex items-center justify-center text-white hover:bg-red-600 transition-transform duration-300 ease-out transform scale-100 hover:scale-105">
+        <span class="material-symbols-outlined !text-4xl">call_end</span>
+      </button>
+    </div>
+  </div>
+} @else {
+   <div class="flex items-center justify-center h-full bg-gray-800 text-white">
+    <p>Loading video call...</p>
+  </div>
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Angular Chat App",
+  "description": "A modern chat application UI built with Angular and Tailwind CSS, inspired by a contemporary design. It features a clean layout, chat filtering, pinned conversations, and a sleek bottom navigation.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
